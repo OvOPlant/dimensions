@@ -261,11 +261,11 @@ function dumpSave() {
     c2_callFunction("Save > Auto Update Mobile Mode");
   }
   var el = document.getElementsByTagName("canvas")[0];
-  /* el.addEventListener("touchstart", handleAnyTouchEvent, false);
+  el.addEventListener("touchstart", handleAnyTouchEvent, false);
   el.addEventListener("touchend", handleAnyTouchEvent, false);
   el.addEventListener("touchcancel", handleAnyTouchEvent, false);
   el.addEventListener("touchleave", handleAnyTouchEvent, false);
-  el.addEventListener("touchmove", handleAnyTouchEvent, false); */
+  el.addEventListener("touchmove", handleAnyTouchEvent, false);
 })();
 
 function isIpad() {
