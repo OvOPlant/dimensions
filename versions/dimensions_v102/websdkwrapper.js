@@ -107,13 +107,13 @@ globalThis.WebSdkWrapper = (function () {
             sdk.gameplayStop();
           });
           listen("interstitial", () => {
-            dispatch("adStarted", sdkContext.lastRequestedAd);
+            dispatch("adStarted", sdkContextt.lastRequestedAd);
             sdk.commercialBreak().then(() => {
               dispatch("interstitialEnd", true);
             });
           });
           listen("rewarded", () => {
-            dispatch("adStarted", sdkContext.lastRequestedAd);
+            dispatch("adStarted", sdkContextt.lastRequestedAd);
             sdk.rewardedBreak().then((success) => {
               dispatch("rewardedEnd", success);
             });
