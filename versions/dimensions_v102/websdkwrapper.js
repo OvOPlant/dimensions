@@ -554,9 +554,10 @@ globalThis.WebSdkWrapper = (function () {
     },
     rewarded() {
       sdkContextt.lastRequestedAd = "rewarded";
-        dispatch("adStarted", sdkContextt.lastRequestedAd);
-        return Promise.resolve(false);
-      
+	if (!currentSdk || !currentSdk.hasAds) {
+        dispatch("adStarted", sdkContext.lastRequestedAd);
+        return Promise.resolve(true);
+      }
       return new Promise((resolve) => {
         let gameplayStarted = sdkContextt.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
