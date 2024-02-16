@@ -70,7 +70,7 @@
             document.body.appendChild(toggleButton);
         }
 
-        notify(title, text, image = "./velocity.png") {
+        notify(title, text, image = "./speedrunner.png") {
             cr.plugins_.sirg_notifications.prototype.acts.AddSimpleNotification.call(
                 this.runtime.types_by_index.find(
                     (type) => type.plugin instanceof cr.plugins_.sirg_notifications
