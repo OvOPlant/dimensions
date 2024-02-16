@@ -107,10 +107,16 @@ globalThis.WebSdkWrapper = (function () {
             sdk.gameplayStop();
           });
           listen("interstitial", () => {
+            dispatch("adStarted", sdkContext.lastRequestedAd);
+            sdk.commercialBreak().then(() => {
               dispatch("interstitialEnd", true);
+            });
           });
           listen("rewarded", () => {
-              dispatch("rewardedEnd", true);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
+            sdk.rewardedBreak().then((success) => {
+              dispatch("rewardedEnd", success);
+            });
           });
           listen("happyTime", (scale) => {
             sdk.happyTime(scale);
@@ -526,13 +532,38 @@ globalThis.WebSdkWrapper = (function () {
       dispatch("banner", data);
     },
     interstitial() {
-      sdkContextt.lastRequestedAd = "interstitial";
-        listenOnce("interstitialEnd", true)
+      sdkContext.lastRequestedAd = "interstitial";
+      return new Promise((resolve) => {
+        let gameplayStarted = sdkContext.gameplayStarted;
+        if (gameplayStarted) Wrapper.gameplayStop();
+        Wrapper.mute();
+        dispatch("interstitial");
+        listenOnce("interstitialEnd", (...args) => {
+          if (gameplayStarted) Wrapper.gameplayStart();
+          Wrapper.unmute();
+          resolve(...args);
+        });
+      });
     },
     rewarded() {
-      sdkContextt.lastRequestedAd = "rewarded";
-      listenOnce("rewardedEnd", true);
+      sdkContext.lastRequestedAd = "rewarded";
+      if (!currentSdk || !currentSdk.hasAds) {
+        dispatch("adStarted", sdkContext.lastRequestedAd);
+        return Promise.resolve(false);
+      }
+      return new Promise((resolve) => {
+        let gameplayStarted = sdkContext.gameplayStarted;
+        if (gameplayStarted) Wrapper.gameplayStop();
+        Wrapper.mute();
+        dispatch("rewarded");
+        listenOnce("rewardedEnd", (...args) => {
+          if (gameplayStarted) Wrapper.gameplayStart();
+          Wrapper.unmute();
+          resolve(...args);
+        });
+      });
     },
+
     onAdStarted(fn) {
       listen("adStarted", fn);
     },
