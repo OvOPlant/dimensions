@@ -533,6 +533,7 @@ globalThis.WebSdkWrapper = (function () {
     },
     interstitial() {
       sdkContext.lastRequestedAd = "interstitial";
+      return Promise.resolve(true)
       return new Promise((resolve) => {
         let gameplayStarted = sdkContext.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
