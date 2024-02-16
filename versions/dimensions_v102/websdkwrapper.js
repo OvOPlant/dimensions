@@ -532,7 +532,7 @@ globalThis.WebSdkWrapper = (function () {
       dispatch("banner", data);
     },
     interstitial() {
-      sdkContext.lastRequestedAd = "interstitial";
+      sdkContextt.lastRequestedAd = "interstitial";
       	if (!currentSdk || !currentSdk.hasAds) {
         dispatch("adStarted", sdkContextt.lastRequestedAd);
         return Promise.resolve(true);
@@ -541,7 +541,7 @@ globalThis.WebSdkWrapper = (function () {
         return Promise.resolve(false);
 	    
       return new Promise((resolve) => {
-        let gameplayStarted = sdkContext.gameplayStarted;
+        let gameplayStarted = sdkContextt.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
         Wrapper.mute();
         dispatch("interstitial");
@@ -553,7 +553,7 @@ globalThis.WebSdkWrapper = (function () {
       });
     },
     rewarded() {
-      sdkContext.lastRequestedAd = "rewarded";
+      sdkContextt.lastRequestedAd = "rewarded";
       if (!currentSdk || !currentSdk.hasAds) {
         dispatch("adStarted", sdkContextt.lastRequestedAd);
         return Promise.resolve(false);
