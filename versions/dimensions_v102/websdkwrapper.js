@@ -113,10 +113,7 @@ globalThis.WebSdkWrapper = (function () {
             });
           });
           listen("rewarded", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
-            sdk.rewardedBreak().then((success) => {
               dispatch("rewardedEnd", success);
-            });
           });
           listen("happyTime", (scale) => {
             sdk.happyTime(scale);
