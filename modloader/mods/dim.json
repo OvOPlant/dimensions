@@ -71,7 +71,7 @@
     },
     "tas": {
         "name": "TAS",
-        "author": "Skymen, Dimensions-ified by OvOPlant",
+        "author": "OvO",
         "description": "TAS tools for OvO.",
         "advanced": true,
         "url": "tas.js"
