@@ -530,13 +530,6 @@ globalThis.WebSdkWrapper = (function () {
     },
     interstitial() {
       sdkContextt.lastRequestedAd = "interstitial";
-	if (!currentSdk || !currentSdk.hasAds) {
-        dispatch("adStarted", sdkContext.lastRequestedAd);
-        return Promise.resolve(true);
-      }
-        dispatch("adStarted", sdkContextt.lastRequestedAd);
-        return Promise.resolve(false);
-      
       return new Promise((resolve) => {
         let gameplayStarted = sdkContextt.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
@@ -551,12 +544,7 @@ globalThis.WebSdkWrapper = (function () {
     },
     rewarded() {
       sdkContextt.lastRequestedAd = "rewarded";
-        dispatch("adStarted", sdkContext.lastRequestedAd);
-        return Promise.resolve(true);
-      return new Promise((resolve) => {
-        dispatch("rewarded");
-        listenOnce("rewardedEnd", success);
-      });
+      dispatch("rewardedEnd", success);
     },
     onAdStarted(fn) {
       listen("adStarted", fn);
