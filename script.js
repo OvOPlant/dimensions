@@ -4,7 +4,7 @@
     if (v1ModsList) {
         const classes = ["bg-black", "text-light", "list-group-item", "list-group-item-action", "list-group-item-dark", "clickable-copy", "hover-pulse"];
 
-        const v1Mods = await fetch("modloader/mods/v1.json").then(r => r.json());
+        const v1Mods = await fetch("modloader/mods/dim.json").then(r => r.json());
 
         for (let key in v1Mods) {
             const mod = v1Mods[key];
