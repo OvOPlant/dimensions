@@ -107,13 +107,10 @@ globalThis.WebSdkWrapper = (function () {
             sdk.gameplayStop();
           });
           listen("interstitial", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
-            sdk.commercialBreak().then(() => {
               dispatch("interstitialEnd", true);
-            });
           });
           listen("rewarded", () => {
-              dispatch("rewardedEnd", success);
+              dispatch("rewardedEnd", true);
           });
           listen("happyTime", (scale) => {
             sdk.happyTime(scale);
@@ -530,21 +527,11 @@ globalThis.WebSdkWrapper = (function () {
     },
     interstitial() {
       sdkContextt.lastRequestedAd = "interstitial";
-      return new Promise((resolve) => {
-        let gameplayStarted = sdkContextt.gameplayStarted;
-        if (gameplayStarted) Wrapper.gameplayStop();
-        Wrapper.mute();
-        dispatch("interstitial");
-        listenOnce("interstitialEnd", (...args) => {
-          if (gameplayStarted) Wrapper.gameplayStart();
-          Wrapper.unmute();
-          resolve(...args);
-        });
-      });
+        listenOnce("interstitialEnd", true)
     },
     rewarded() {
       sdkContextt.lastRequestedAd = "rewarded";
-      dispatch("rewardedEnd", success);
+      listenOnce("rewardedEnd", true);
     },
     onAdStarted(fn) {
       listen("adStarted", fn);
