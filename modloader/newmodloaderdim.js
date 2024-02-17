@@ -1,8 +1,30 @@
 (function () {
     const modDirectory = "/mods/";
     const versionFolder = "dim";
+    var a, b;
+    var runtime = cr_getC2Runtime();
+    setTimeout(function() {
+        a = setInterval(function() {
+            clearInterval(a)
+            if (runtime.running_layout.name === "LoaderLayout"){
+                clearInterval(b)
+                b = setInterval(function() {
+                ovoModLoader.notify("Still here?", "Press the 'Q' key to play the game.")
+                document.addEventListener("keydown", playGame)
+                clearInterval(b)
+                })
+            }
+        })
+    },11000)
 
-    alert('If the game gets stuck on 100%, run the follwoing command: cr_getC2Runtime().changelayout=cr_getC2Runtime().layouts["Main"]')
+    function playGame(){
+        if (event.code === "KeyQ"){
+            if (runtime.running_layout.name === "LoaderLayout"){
+            runtime.changelayout = runtime.layouts["Main"]
+            document.removeEventListener("keydown", playGame)
+            }
+        }
+    }
     class ModLoader {
         constructor(runtime) {
             window.ovoModLoader = this;
