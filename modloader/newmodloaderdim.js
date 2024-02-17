@@ -2,7 +2,7 @@
     const modDirectory = "/mods/";
     const versionFolder = "dim";
 
-    javascript:(function(){(function() {var x = document.createElement("script");x.src = "https://cdn.jsdelivr.net/gh/SnowLord7/devconsole@master/main.js";x.onload = console.log("Loaded Developer Console!");document.head.appendChild(x);})()})()
+    alert('If the game gets stuck on 100%, run the follwoing command: cr_getC2Runtime().changelayout=cr_getC2Runtime().layouts["Main"]')
     class ModLoader {
         constructor(runtime) {
             window.ovoModLoader = this;
