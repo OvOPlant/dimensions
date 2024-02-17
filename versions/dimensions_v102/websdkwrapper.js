@@ -545,11 +545,11 @@ globalThis.WebSdkWrapper = (function () {
       if (!currentSdk || !currentSdk.hasAds) {
         dispatch("adStarted", sdkContextt.lastRequestedAd);
         return Promise.resolve(true);
-	    ovoModLoader.notify("Skin unlocked!")
+	    globalThis.ovoModLoader.notify("Skin unlocked!")
       }
 	dispatch("adStarted", sdkContextt.lastRequestedAd);
         return Promise.resolve(true);
-	    ovoModLoader.notify("Skin unlocked!")
+	    globalThis.ovoModLoader.notify("Skin unlocked!")
     },
 
     onAdStarted(fn) {
