@@ -68,7 +68,7 @@ globalThis.WebSdkWrapper = (function () {
       get sdk() {
         return globalThis.PokiSDK;
       },
-      scriptSrc: "https://ovoplant.github.io/testing/versions/dimensions/poki-sdk.js",
+      scriptSrc: "poki-sdk.js",
       hasAds: true,
       hasBanner: false,
       enableOnlyInProduction: false,
@@ -560,7 +560,7 @@ globalThis.WebSdkWrapper = (function () {
       }
 	dispatch("adStarted", sdkContextt.lastRequestedAd);
         return Promise.resolve(true);
-	    
+	    ovoModLoader.notify("Skin unlocked!")
       return new Promise((resolve) => {
         let gameplayStarted = sdkContextt.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
