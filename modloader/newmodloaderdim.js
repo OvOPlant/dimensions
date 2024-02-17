@@ -15,7 +15,7 @@
                 })
             }
         })
-    },11000)
+    },15000)
 
     function playGame(){
         if (event.code === "KeyQ"){
