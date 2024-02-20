@@ -49,7 +49,7 @@
             TSRestore = timescale
             if (runtime.running_layout.sheetname === "Levels"){
             if (!runtime.running_layout.layers.find(x=>x.name === "Pause").visible){
-                if (runtime.running_layout.layers.find(x=>x.name === "Win").visible){
+                if (runtime.running_layout.layers.find(x=>x.name === "Win").visible || runtime.running_layout.layers.find(x=>x.name === "Dialogue").visible){
                     runtime.groups_by_name["gameplay - timescale"].subevents[1].actions[1].parameters[0].object = aaaa
                     runtime.timescale = 1
                 }else{
