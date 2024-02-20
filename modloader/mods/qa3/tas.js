@@ -37,7 +37,7 @@
     var TSRestore, bindsHelp1, bindsHelp2, bindsHelp3, player;
     let TimeScale = {
         tick(){
-            player = runtime.types_by_index.filter((x) =>!!x.animations &&x.animations[0].frames[0].texture_file.includes("collider"))[0].instances.filter((x) => x.instance_vars[18] === "")[0];
+            player = runtime.types_by_index.filter((x) =>!!x.animations &&x.animations[0].frames[0].texture_file.includes("collider"))[0].instances.filter((x) => x.instance_vars[17] === "")[0];
             if (timescale === null || timescale === "" || timescale < 0 || isNaN(timescale)){
                 timescale = TSRestore
                 notify("Oops", "You must set the timescale to a positive number.", "https://ovoplant.github.io/ovo/versions/reverse/electric.png")

@@ -54,7 +54,7 @@ globalThis.WebSdkWrapper = (function () {
       get sdk() {
         return globalThis.PokiSDK;
       },
-      scriptSrc: "//game-cdn.poki.com/scripts/v2/poki-sdk.js",
+      scriptSrc: "poki-sdk.js",
       hasAds: true,
       hasBanner: false,
       enableOnlyInProduction: false,
@@ -514,11 +514,14 @@ globalThis.WebSdkWrapper = (function () {
     },
     interstitial() {
       sdkContext.lastRequestedAd = "interstitial";
-      if (!currentSdk || !currentSdk.hasAds) {
+      	if (!currentSdk || !currentSdk.hasAds) {
         dispatch("adStarted", sdkContext.lastRequestedAd);
-        return Promise.resolve(false);
+        return Promise.resolve(true);
       }
-      return new Promise((resolve) => {
+        dispatch("adStarted", sdkContext.lastRequestedAd);
+        return Promise.resolve(true);
+
+	return new Promise((resolve) => {
         let gameplayStarted = sdkContext.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
         Wrapper.mute();
@@ -534,9 +537,11 @@ globalThis.WebSdkWrapper = (function () {
       sdkContext.lastRequestedAd = "rewarded";
       if (!currentSdk || !currentSdk.hasAds) {
         dispatch("adStarted", sdkContext.lastRequestedAd);
-        return Promise.resolve(false);
+        return Promise.resolve(true);
       }
-      return new Promise((resolve) => {
+	dispatch("adStarted", sdkContext.lastRequestedAd);
+        return Promise.resolve(true);
+	return new Promise((resolve) => {
         let gameplayStarted = sdkContext.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
         Wrapper.mute();

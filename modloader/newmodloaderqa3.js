@@ -1,6 +1,6 @@
 (function () {
     const modDirectory = "/mods/";
-    const versionFolder = "v1";
+    const versionFolder = "qa3";
 
     class ModLoader {
         constructor(runtime) {
@@ -15,7 +15,7 @@
         }
 
         async #init() {
-            this.mods = await fetch(this.getModDirectory() + "v1.json").then(res => res.json());
+            this.mods = await fetch(this.getModDirectory() + "qa3.json").then(res => res.json());
             this.loadModURL("modapi.js", true, false);
 
             window.addEventListener("keydown", (event) => {
@@ -134,7 +134,7 @@
 
         loadModURL(url, local = false, notify = true) {
             if (local) {
-                url = this.getModDirectory() + "v1/" + url;
+                url = this.getModDirectory() + "qa3/" + url;
             }
 
             const name = this.getURLName(url);
@@ -150,7 +150,7 @@
         }
 
         loadModJSON(key, json, notify = true) {
-            const url = this.getModDirectory() + "v1/" + json.url;
+            const url = this.getModDirectory() + "qa3/" + json.url;
             const name = json.name;
 
             if (this.getIsScriptLoaded(key)) {
