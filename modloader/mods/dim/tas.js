@@ -48,7 +48,7 @@
             }
             TSRestore = timescale
             if (runtime.running_layout.sheetname === "Levels"){
-            if (!runtime.running_layout.layers.find(x=>x.name === "Pause").visible){
+            if (!runtime.running_layout.layers.find(x=>x.name === "Pause").visible && !runtime.running_layout.layers.find(x=>x.name === "Dialogue").visible){
                 if (runtime.running_layout.layers.find(x=>x.name === "Win").visible){
                     runtime.groups_by_name["gameplay - timescale"].subevents[1].actions[1].parameters[0].object = aaaa
                     runtime.timescale = 1
@@ -61,9 +61,7 @@
                         aaaa.instances[i].my_timescale = runtime.timescale
                 }
             };
-            }else if (runtime.running_layout.layers.find(x=>x.name === "Pause").visible){
-                runtime.groups_by_name["gameplay - timescale"].subevents[1].actions[1].parameters[0].object = aaaa
-            }else if (runtime.running_layout.layers.find(x=>x.name === "Dialogue").visible){
+            }else if (runtime.running_layout.layers.find(x=>x.name === "Pause").visible || runtime.running_layout.layers.find(x=>x.name === "Dialogue").visible){
                 runtime.groups_by_name["gameplay - timescale"].subevents[1].actions[1].parameters[0].object = aaaa
             }
         }
