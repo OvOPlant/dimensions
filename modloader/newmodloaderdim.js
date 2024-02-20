@@ -2,8 +2,9 @@
     const modDirectory = "/mods/";
     const versionFolder = "dim";
     var a, b;
-    var runtime = cr_getC2Runtime();
+    var runtime
     setTimeout(function() {
+    runtime = cr_getC2Runtime();
         a = setInterval(function() {
             clearInterval(a)
             if (runtime.running_layout.name === "LoaderLayout"){
