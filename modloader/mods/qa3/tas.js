@@ -37,7 +37,7 @@
     var TSRestore, bindsHelp1, bindsHelp2, bindsHelp3, player;
     let TimeScale = {
         tick(){
-            player = runtime.types_by_index.filter((x) =>!!x.animations &&x.animations[0].frames[0].texture_file.includes("collider"))[0].instances.filter((x) => x.instance_vars[17] === "")[0];
+            player = runtime.types_by_index.filter((x) =>!!x.animations &&x.animations[0].frames[0].texture_file.includes("collider"))[0].instances.filter((x) => x.instance_vars[18] === "")[0];
             if (timescale === null || timescale === "" || timescale < 0 || isNaN(timescale)){
                 timescale = TSRestore
                 notify("Oops", "You must set the timescale to a positive number.", "https://ovoplant.github.io/ovo/versions/reverse/electric.png")
@@ -48,7 +48,7 @@
             }
             TSRestore = timescale
             if (runtime.running_layout.sheetname === "Levels"){
-            if (!runtime.running_layout.layers.find(x=>x.name === "Pause").visible){
+            if (!runtime.running_layout.layers.find(x=>x.name === "Pause").visible && !runtime.running_layout.layers.find(x=>x.name === "Dialogue").visible){
                 if (runtime.running_layout.layers.find(x=>x.name === "Win").visible){
                     runtime.groups_by_name["gameplay - timescale"].subevents[1].actions[1].parameters[0].object = aaaa
                     runtime.timescale = 1
@@ -61,7 +61,7 @@
                         aaaa.instances[i].my_timescale = runtime.timescale
                 }
             };
-            }else if (runtime.running_layout.layers.find(x=>x.name === "Pause").visible){
+            }else if (runtime.running_layout.layers.find(x=>x.name === "Pause").visible || runtime.running_layout.layers.find(x=>x.name === "Dialogue").visible){
                 runtime.groups_by_name["gameplay - timescale"].subevents[1].actions[1].parameters[0].object = aaaa
             }
         }
