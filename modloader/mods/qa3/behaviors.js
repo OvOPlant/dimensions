@@ -90,7 +90,7 @@
         
 
         loadPrompt() {
-            let bh = prompt('Choose one: "teleport", "gravity", "jumpstrength", "timescale", "angle", "speed", "fallspeed", "acceleration", "deceleration", "size", "downx", "downy", "zoom", "dead", or type "reset"');
+            let bh = prompt('Choose one: "teleport", "gravity", "jumpstrength", "angle", "speed", "fallspeed", "acceleration", "deceleration", "size", "downx", "downy", "zoom", "dead", or type "reset"');
             if (bh === "reset") {this.loadReset();
             }else if (bh === "teleport") {this.tp();
             }else if (bh === "gravity") {this.gravity();
@@ -110,16 +110,16 @@
         },
 
         loadReset() {
-            let bhreset = prompt('Choose what to reset: "gravity", "jumpstrength", "timescale", "angle", "speed", "fallspeed", "acceleration", "deceleration", "size", "downx", "downy", "zoom"');
+            let bhreset = prompt('Choose what to reset: "gravity", "jumpstrength", "angle", "speed", "fallspeed", "acceleration", "deceleration", "size", "downx", "downy", "zoom"');
             if (bhreset === "gravity") {grav = 1500;
             }else if (bhreset === "jumpstrength") {js = 650;
-            }else if (bhreset === "timescale"){
+            }/* else if (bhreset === "timescale"){
                 tsreset = prompt('"player", "moveareas", or "both"?')
                 if (tsreset === "player") {ts = -1
                 }else if (tsreset === "moveareas") {mts = -1;
                 }else if (tsreset === "both") {ts = -1, mts = -1;
                 }else {alert("Please choose from the list")}
-            }else if (bhreset === "angle") {pangle = 0;
+            } */else if (bhreset === "angle") {pangle = 0;
             }else if (bhreset === "speed") {clearInterval(speed);
             }else if (bhreset === "fallspeed") {mf = 3000;
             }else if (bhreset === "acceleration") {acc = 1500;
@@ -177,7 +177,8 @@
         },
 
         timescale() {
-            wts = prompt('"player" or "moveareas"?')
+            notify("Sorry...", "Due to how timescale works, this is sadly not possible.")
+            /* wts = prompt('"player" or "moveareas"?')
             if (wts === "player"){
             ts = prompt('Change your timescale to whatever you want');
             if (ts === null || ts === "" || isNaN(ts)){
@@ -216,7 +217,7 @@
                     }else(
                     instancess[i].my_timescale = mts), 0}});
             
-                }
+                } */
         },
 
         angle() {
