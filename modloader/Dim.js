@@ -1,7 +1,33 @@
 (function () {
     const modDirectory = "/mods/";
-    const versionFolder = "qa3";
+    const versionFolder = "dim";
+    var a, b;
+    var runtime
+    if (window.location.href.includes("v102")){
+    setTimeout(function() {
+    runtime = cr_getC2Runtime();
+        a = setInterval(function() {
+            clearInterval(a)
+            if (runtime.running_layout.name === "LoaderLayout"){
+                clearInterval(b)
+                b = setInterval(function() {
+                ovoModLoader.notify("Still here?", "Press the 'Q' key to play the game (MAKE SURE IT'S AT 100%).")
+                document.addEventListener("keydown", playGame)
+                clearInterval(b)
+                })
+            }
+        })
+    },15000)
+}
 
+    function playGame(){
+        if (event.code === "KeyQ"){
+            if (runtime.running_layout.name === "LoaderLayout"){
+            runtime.changelayout = runtime.layouts["Main"]
+            document.removeEventListener("keydown", playGame)
+            }
+        }
+    }
     class ModLoader {
         constructor(runtime) {
             window.ovoModLoader = this;
@@ -15,7 +41,7 @@
         }
 
         async #init() {
-            this.mods = await fetch(this.getModDirectory() + "qa3.json").then(res => res.json());
+            this.mods = await fetch(this.getModDirectory() + "dim.json").then(res => res.json());
             this.loadModURL("modapi.js", true, false);
 
             window.addEventListener("keydown", (event) => {
@@ -70,7 +96,7 @@
             document.body.appendChild(toggleButton);
         }
 
-        notify(title, text, image = "./speedrunner.png") {
+        notify(title, text, image = "./velocity.png") {
             cr.plugins_.sirg_notifications.prototype.acts.AddSimpleNotification.call(
                 this.runtime.types_by_index.find(
                     (type) => type.plugin instanceof cr.plugins_.sirg_notifications
@@ -118,6 +144,9 @@
 
             js.onload = () => {
                 this.loadedMods.push(key);
+                if(key === "inputs"){
+                    notify = false
+                }
                 if (notify) {
                     this.notify("Mod loaded", name);
                 }
@@ -134,7 +163,7 @@
 
         loadModURL(url, local = false, notify = true) {
             if (local) {
-                url = this.getModDirectory() + "qa3/" + url;
+                url = this.getModDirectory() + "dim/" + url;
             }
 
             const name = this.getURLName(url);
@@ -150,7 +179,7 @@
         }
 
         loadModJSON(key, json, notify = true) {
-            const url = this.getModDirectory() + "qa3/" + json.url;
+            const url = this.getModDirectory() + "dim/" + json.url;
             const name = json.name;
 
             if (this.getIsScriptLoaded(key)) {

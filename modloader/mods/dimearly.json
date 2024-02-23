@@ -153,6 +153,13 @@
         "advanced": false,
         "url": "dvd.js"
     },
+    "inputs": {
+        "name": "Inputs (only for the Early version)",
+        "author": "OvOPlant",
+        "description": "Change your inputs because the super early game doesn't let you.",
+        "advanced": false,
+        "url": "inputs.js"
+    },
     "moveflag": {
         "name": "MoveFlag",
         "author": "OvOPlant",

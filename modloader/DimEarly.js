@@ -1,32 +1,10 @@
 (function () {
     const modDirectory = "/mods/";
-    const versionFolder = "dim";
-    var a, b;
-    var runtime
-    if (window.location.href.includes("v102")){
-    setTimeout(function() {
-    runtime = cr_getC2Runtime();
-        a = setInterval(function() {
-            clearInterval(a)
-            if (runtime.running_layout.name === "LoaderLayout"){
-                clearInterval(b)
-                b = setInterval(function() {
-                ovoModLoader.notify("Still here?", "Press the 'Q' key to play the game (MAKE SURE IT'S AT 100%).")
-                document.addEventListener("keydown", playGame)
-                clearInterval(b)
-                })
-            }
-        })
-    },15000)
-}
-
-    function playGame(){
-        if (event.code === "KeyQ"){
-            if (runtime.running_layout.name === "LoaderLayout"){
-            runtime.changelayout = runtime.layouts["Main"]
-            document.removeEventListener("keydown", playGame)
-            }
-        }
+    const versionFolder = "dimearly";
+    if (window.location.href.includes("qa_v3")){
+        setTimeout(function() {
+            ovoModLoader.notify("WARNING", "LOADING THIS VERSION MAY BE VERY LAGGY")
+        },500)
     }
     class ModLoader {
         constructor(runtime) {
@@ -41,7 +19,7 @@
         }
 
         async #init() {
-            this.mods = await fetch(this.getModDirectory() + "dim.json").then(res => res.json());
+            this.mods = await fetch(this.getModDirectory() + "dimearly.json").then(res => res.json());
             this.loadModURL("modapi.js", true, false);
 
             window.addEventListener("keydown", (event) => {
@@ -144,6 +122,9 @@
 
             js.onload = () => {
                 this.loadedMods.push(key);
+                if (key === "inputs"){
+                    notify = false
+                }
                 if (notify) {
                     this.notify("Mod loaded", name);
                 }
@@ -160,7 +141,7 @@
 
         loadModURL(url, local = false, notify = true) {
             if (local) {
-                url = this.getModDirectory() + "dim/" + url;
+                url = this.getModDirectory() + "dimearly/" + url;
             }
 
             const name = this.getURLName(url);
@@ -176,7 +157,7 @@
         }
 
         loadModJSON(key, json, notify = true) {
-            const url = this.getModDirectory() + "dim/" + json.url;
+            const url = this.getModDirectory() + "dimearly/" + json.url;
             const name = json.name;
 
             if (this.getIsScriptLoaded(key)) {
