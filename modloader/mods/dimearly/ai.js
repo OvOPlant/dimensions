@@ -8,7 +8,7 @@
     // Util stuff
     let clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-    let notify = (title, text, image = "./speedrunner.png") => {
+    let notify = (title, text, image = "./velocity.png") => {
         cr.plugins_.sirg_notifications.prototype.acts.AddSimpleNotification.call(
             runtime.types_by_index.find(
                 (type) => type.plugin instanceof cr.plugins_.sirg_notifications

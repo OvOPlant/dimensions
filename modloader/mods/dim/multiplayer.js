@@ -4485,7 +4485,7 @@
                 };
 
                 // Util stuff
-                let notify = (title, text, image = "./speedrunner.png") => {
+                let notify = (title, text, image = "./velocity.png") => {
                     cr.plugins_.sirg_notifications.prototype.acts.AddSimpleNotification.call(
                         runtime.types_by_index.find(
                             (type) => type.plugin instanceof cr.plugins_.sirg_notifications
@@ -4785,7 +4785,7 @@
 
                 let getPlayer = () =>
                     playerType.instances.filter(
-                        (x) => x.instance_vars[18] === "" && x.behavior_insts[0].enabled
+                        (x) => x.instance_vars[17] === "" && x.behavior_insts[0].enabled
                     )[0];
 
                 let getFlag = () =>
@@ -7076,7 +7076,7 @@
                     destroyNonPlayerGhosts() {
                         if (!getFlag()) return;
                         let ghosts = playerType.instances.filter(
-                            (x) => x.instance_vars[16] && x.instance_vars[18] !== ""
+                            (x) => x.instance_vars[16] && x.instance_vars[17] !== ""
                         );
                         if (!ghosts) return;
                         ghosts.forEach((ghost) => {
@@ -7107,7 +7107,7 @@
                         );
                         instance.visible = false;
                         instance.instance_vars[16] = 1;
-                        instance.instance_vars[18] = "";
+                        instance.instance_vars[17] = "";
                         instance.instance_vars[12] = data.skin;
                         setTimeout(() => {
                             if (!getFlag()) return;

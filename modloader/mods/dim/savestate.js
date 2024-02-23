@@ -13,7 +13,7 @@
                         x.animations[0].frames[0].texture_file.includes("collider")
                 )[0]
                 .instances.filter(
-                    (x) => x.instance_vars[18] === "" && x.behavior_insts[0].enabled
+                    (x) => x.instance_vars[17] === "" && x.behavior_insts[0].enabled
                 );
             let player = playerInstances[0];
         },
@@ -28,7 +28,7 @@
                         x.animations[0].frames[0].texture_file.includes("collider")
                 )[0]
                 .instances.filter(
-                    (x) => x.instance_vars[18] === "" && x.behavior_insts[0].enabled
+                    (x) => x.instance_vars[17] === "" && x.behavior_insts[0].enabled
                 );
             let player = playerInstances[0];
             try {
@@ -55,7 +55,7 @@
                         x.animations[0].frames[0].texture_file.includes("collider")
                 )[0]
                 .instances.filter(
-                    (x) => x.instance_vars[18] === "" && x.behavior_insts[0].enabled
+                    (x) => x.instance_vars[17] === "" && x.behavior_insts[0].enabled
                 );
             let player = playerInstances[0];
             player.x = x;
@@ -70,7 +70,7 @@
                         x.animations[0].frames[0].texture_file.includes("collider")
                 )[0]
                 .instances.filter(
-                    (x) => x.instance_vars[18] === "" && x.behavior_insts[0].enabled
+                    (x) => x.instance_vars[17] === "" && x.behavior_insts[0].enabled
                 );
             let player = playerInstances[0];
             targetY = player.y;
@@ -89,7 +89,7 @@
     //Get all valid players on the layout
     // Ghosts don't count as valid players, and replays don't count either
 
-    let notify = (text, title = "Save state", image = "./speedrunner.png") => {
+    let notify = (text, title = "Save state", image = "./velocity.png") => {
         cr.plugins_.sirg_notifications.prototype.acts.AddSimpleNotification.call(
             runtime.types_by_index.find(
                 (type) => type.plugin instanceof cr.plugins_.sirg_notifications
@@ -113,7 +113,7 @@
                     x.animations[0].frames[0].texture_file.includes("collider")
             )[0]
             .instances.filter(
-                (x) => x.instance_vars[18] === "" && x.behavior_insts[0].enabled
+                (x) => x.instance_vars[17] === "" && x.behavior_insts[0].enabled
             )[0];
     let getFlag = () =>
         runtime.types_by_index.find(

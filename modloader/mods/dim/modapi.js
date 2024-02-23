@@ -39,7 +39,7 @@
                 };
             },
 
-            notify(title, text, image = "./speedrunner.png") {
+            notify(title, text, image = "./velocity.png") {
                 cr.plugins_.sirg_notifications.prototype.acts.AddSimpleNotification.call(
                     this.runtime.types_by_index.find(
                         (type) => type.plugin instanceof cr.plugins_.sirg_notifications
@@ -58,7 +58,7 @@
                             x.animations[0].frames[0].texture_file.includes("collider")
                     )[0]
                     .instances.filter(
-                        (x) => x.instance_vars[18] === "" && x.behavior_insts[0].enabled
+                        (x) => x.instance_vars[17] === "" && x.behavior_insts[0].enabled
                     )[0];
             },
 

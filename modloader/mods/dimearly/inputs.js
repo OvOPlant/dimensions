@@ -1,3 +1,4 @@
+if(window.location.href.includes("early")){
 (function () {
     let old = globalThis.sdk_runtime;
     c2_callFunction("execCode", ["globalThis.sdk_runtime = this.runtime"]);
@@ -15,11 +16,16 @@
         );
     };
 
-    let randomKeys = {
+    let inputs = {
         init() {
-            this.availibleKeys = []
-
-            globalThis.ovoRandomKeys = this;
-        }
+            
+            globalThis.ovoInputs = this;
+            notify("Soon", "Coming soon...");
+        },
     }
-})();
+
+    inputs.init();
+})()}
+else{
+    ovoModLoader.notify("Not here.", "This is only for the earliest version.")
+}

@@ -89,7 +89,7 @@
     //Get all valid players on the layout
     // Ghosts don't count as valid players, and replays don't count either
 
-    let notify = (text, title = "Save state", image = "./speedrunner.png") => {
+    let notify = (text, title = "Save state", image = "./velocity.png") => {
         cr.plugins_.sirg_notifications.prototype.acts.AddSimpleNotification.call(
             runtime.types_by_index.find(
                 (type) => type.plugin instanceof cr.plugins_.sirg_notifications
