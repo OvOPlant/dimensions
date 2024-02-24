@@ -1,33 +1,6 @@
 (function () {
     const modDirectory = "/mods/";
     const versionFolder = "dim";
-    var a, b;
-    var runtime
-    if (window.location.href.includes("v102")){
-    setTimeout(function() {
-    runtime = cr_getC2Runtime();
-        a = setInterval(function() {
-            clearInterval(a)
-            if (runtime.running_layout.name === "LoaderLayout"){
-                clearInterval(b)
-                b = setInterval(function() {
-                ovoModLoader.notify("Still here?", "Press the 'Q' key to play the game (MAKE SURE IT'S AT 100%).")
-                document.addEventListener("keydown", playGame)
-                clearInterval(b)
-                })
-            }
-        })
-    },15000)
-}
-
-    function playGame(){
-        if (event.code === "KeyQ"){
-            if (runtime.running_layout.name === "LoaderLayout"){
-            runtime.changelayout = runtime.layouts["Main"]
-            document.removeEventListener("keydown", playGame)
-            }
-        }
-    }
     class ModLoader {
         constructor(runtime) {
             window.ovoModLoader = this;
