@@ -61,7 +61,7 @@ globalThis.WebSdkWrapper = (function () {
   ==============  EVENT DISPATCHER  =================
   */
   let sdk;
-  sdkContextt = {};
+  let sdkContext = {};
   let supportedNetworks = [
     {
       name: "Poki",
@@ -79,11 +79,11 @@ globalThis.WebSdkWrapper = (function () {
             sdk
               .init()
               .then(() => {
-                sdkContextt.hasAdblock = false;
+                sdkContext.hasAdblock = false;
                 resolve();
               })
               .catch(() => {
-                sdkContextt.hasAdblock = true;
+                sdkContext.hasAdblock = true;
                 resolve();
               });
             sdk.setDebug(debug);
@@ -97,23 +97,23 @@ globalThis.WebSdkWrapper = (function () {
             sdk.gameLoadingFinished();
           });
           listen("gameplayStart", () => {
-            if (sdkContextt.gameplayStarted) return;
-            sdkContextt.gameplayStarted = true;
+            if (sdkContext.gameplayStarted) return;
+            sdkContext.gameplayStarted = true;
             sdk.gameplayStart();
           });
           listen("gameplayStop", () => {
-            if (!sdkContextt.gameplayStarted) return;
-            sdkContextt.gameplayStarted = false;
+            if (!sdkContext.gameplayStarted) return;
+            sdkContext.gameplayStarted = false;
             sdk.gameplayStop();
           });
           listen("interstitial", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk.commercialBreak().then(() => {
               dispatch("interstitialEnd", true);
             });
           });
           listen("rewarded", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk.rewardedBreak().then((success) => {
               dispatch("rewardedEnd", success);
             });
@@ -123,21 +123,21 @@ globalThis.WebSdkWrapper = (function () {
           });
         },
         hasAdblock() {
-          return !!sdkContextt.hasAdblock;
+          return !!sdkContext.hasAdblock;
         },
       },
     },
     {
       name: "CrazyGames",
       get sdk() {
-        if (!sdkContextt.crazysdk)
-          sdkContextt.crazysdk =
+        if (!sdkContext.crazysdk)
+          sdkContext.crazysdk =
             globalThis &&
             globalThis.CrazyGames &&
             globalThis.CrazyGames.CrazySDK &&
             globalThis.CrazyGames.CrazySDK.getInstance &&
             globalThis.CrazyGames.CrazySDK.getInstance();
-        return sdkContextt.crazysdk;
+        return sdkContext.crazysdk;
       },
       scriptSrc: "//sdk.crazygames.com/crazygames-sdk-v1.js",
       hasAds: true,
@@ -148,7 +148,7 @@ globalThis.WebSdkWrapper = (function () {
         init() {
           return new Promise((resolve) => {
             sdk.addEventListener("adblockDetectionExecuted", (event) => {
-              sdkContextt.hasAdblock = event.hasAdblock;
+              sdkContext.hasAdblock = event.hasAdblock;
               resolve();
             });
             sdk.init();
@@ -156,39 +156,39 @@ globalThis.WebSdkWrapper = (function () {
         },
         setUpEventListeners() {
           sdk.addEventListener("adStarted", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
           });
           sdk.addEventListener("adFinished", () => {
-            if (sdkContextt.lastRequestedAd === "interstitial")
+            if (sdkContext.lastRequestedAd === "interstitial")
               dispatch("interstitialEnd", true);
             else dispatch("rewardedEnd", true);
           });
           sdk.addEventListener("adFinished", () => {
-            if (sdkContextt.lastRequestedAd === "interstitial")
+            if (sdkContext.lastRequestedAd === "interstitial")
               dispatch("interstitialEnd", true);
             else dispatch("rewardedEnd", true);
           });
           sdk.addEventListener("adError", () => {
-            if (sdkContextt.lastRequestedAd === "interstitial")
+            if (sdkContext.lastRequestedAd === "interstitial")
               dispatch("interstitialEnd", false);
             else dispatch("rewardedEnd", false);
           });
           listen("gameplayStart", () => {
-            if (sdkContextt.gameplayStarted) return;
-            sdkContextt.gameplayStarted = true;
+            if (sdkContext.gameplayStarted) return;
+            sdkContext.gameplayStarted = true;
             sdk.gameplayStart();
           });
           listen("gameplayStop", () => {
-            if (!sdkContextt.gameplayStarted) return;
-            sdkContextt.gameplayStarted = false;
+            if (!sdkContext.gameplayStarted) return;
+            sdkContext.gameplayStarted = false;
             sdk.gameplayStop();
           });
           listen("interstitial", () => {
-            sdkContextt.lastRequestedAd = "interstitial";
+            sdkContext.lastRequestedAd = "interstitial";
             sdk.requestAd("midgame");
           });
           listen("rewarded", () => {
-            sdkContextt.lastRequestedAd = "rewarded";
+            sdkContext.lastRequestedAd = "rewarded";
             sdk.requestAd("rewarded");
           });
           listen("happyTime", () => {
@@ -199,7 +199,7 @@ globalThis.WebSdkWrapper = (function () {
           });
         },
         hasAdblock() {
-          return !!sdkContextt.hasAdblock;
+          return !!sdkContext.hasAdblock;
         },
       },
     },
@@ -235,13 +235,13 @@ globalThis.WebSdkWrapper = (function () {
             sdk.updateScore(score);
           });
           listen("interstitial", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk.interstitialAd().then(() => {
               dispatch("interstitialEnd", true);
             });
           });
           listen("rewarded", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk.rewardAd().then((res) => {
               dispatch("rewardedEnd", res.success);
             });
@@ -266,7 +266,7 @@ globalThis.WebSdkWrapper = (function () {
       hasBanner: false,
       implementation: {
         async preInit(debug = false, data) {
-          sdkContextt.errors = 0;
+          sdkContext.errors = 0;
           window["GD_OPTIONS"] = {
             gameId: data.gameId,
             debug,
@@ -274,8 +274,8 @@ globalThis.WebSdkWrapper = (function () {
             onEvent: function (event) {
               switch (event.name) {
                 case "SDK_GAME_START":
-                  sdkContextt.errors = 0;
-                  // if (sdkContextt.lastRequestedAd === "interstitial")
+                  sdkContext.errors = 0;
+                  // if (sdkContext.lastRequestedAd === "interstitial")
                   //   dispatch("interstitialEnd", true);
                   // else dispatch("rewardedEnd", true);
                   break;
@@ -289,13 +289,13 @@ globalThis.WebSdkWrapper = (function () {
                   // this event is triggered when your user doesn't want personalised targeting of ads and such
                   break;
                 case "AD_ERROR":
-                  sdkContextt.errors += 1;
-                  // if (sdkContextt.errors >= 2) {
-                  //   if (sdkContextt.lastRequestedAd === "interstitial")
+                  sdkContext.errors += 1;
+                  // if (sdkContext.errors >= 2) {
+                  //   if (sdkContext.lastRequestedAd === "interstitial")
                   //     dispatch("interstitialEnd", false);
                   //   else dispatch("rewardedEnd", false);
                   // } else {
-                  //   dispatch(sdkContextt.lastRequestedAd);
+                  //   dispatch(sdkContext.lastRequestedAd);
                   // }
                   break;
               }
@@ -305,8 +305,8 @@ globalThis.WebSdkWrapper = (function () {
         //init() {},
         setUpEventListeners() {
           listen("interstitial", () => {
-            sdkContextt.lastRequestedAd = "interstitial";
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            sdkContext.lastRequestedAd = "interstitial";
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk
               .showAd()
               .then((response) => {
@@ -317,8 +317,8 @@ globalThis.WebSdkWrapper = (function () {
               });
           });
           listen("rewarded", () => {
-            sdkContextt.lastRequestedAd = "rewarded";
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            sdkContext.lastRequestedAd = "rewarded";
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk
               .showAd("rewarded")
               .then((response) => {
@@ -352,7 +352,7 @@ globalThis.WebSdkWrapper = (function () {
             onEvent: function (event) {
               switch (event.name) {
                 case "SDK_GAME_START":
-                  if (sdkContextt.lastRequestedAd === "interstitial")
+                  if (sdkContext.lastRequestedAd === "interstitial")
                     dispatch("interstitialEnd", true);
                   else dispatch("rewardedEnd", true);
                   break;
@@ -366,13 +366,13 @@ globalThis.WebSdkWrapper = (function () {
                   // this event is triggered when your user doesn't want personalised targeting of ads and such
                   break;
                 case "AD_ERROR":
-                  sdkContextt.errors += 1;
-                  if (sdkContextt.errors >= 2) {
-                    if (sdkContextt.lastRequestedAd === "interstitial")
+                  sdkContext.errors += 1;
+                  if (sdkContext.errors >= 2) {
+                    if (sdkContext.lastRequestedAd === "interstitial")
                       dispatch("interstitialEnd", false);
                     else dispatch("rewardedEnd", false);
                   } else {
-                    dispatch(sdkContextt.lastRequestedAd);
+                    dispatch(sdkContext.lastRequestedAd);
                   }
                   break;
               }
@@ -382,11 +382,11 @@ globalThis.WebSdkWrapper = (function () {
         //init() {},
         setUpEventListeners() {
           listen("interstitial", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk.showBanner();
           });
           listen("rewarded", () => {
-            dispatch("adStarted", sdkContextt.lastRequestedAd);
+            dispatch("adStarted", sdkContext.lastRequestedAd);
             sdk.showBanner();
           });
         },
@@ -532,16 +532,16 @@ globalThis.WebSdkWrapper = (function () {
       dispatch("banner", data);
     },
     interstitial() {
-      sdkContextt.lastRequestedAd = "interstitial";
+      sdkContext.lastRequestedAd = "interstitial";
       	if (!currentSdk || !currentSdk.hasAds) {
-        dispatch("adStarted", sdkContextt.lastRequestedAd);
+        dispatch("adStarted", sdkContext.lastRequestedAd);
         return Promise.resolve(true);
       }
-        dispatch("adStarted", sdkContextt.lastRequestedAd);
+        dispatch("adStarted", sdkContext.lastRequestedAd);
         return Promise.resolve(true);
 
 	return new Promise((resolve) => {
-        let gameplayStarted = sdkContextt.gameplayStarted;
+        let gameplayStarted = sdkContext.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
         Wrapper.mute();
         dispatch("interstitial");
@@ -553,15 +553,15 @@ globalThis.WebSdkWrapper = (function () {
       });
     },
     rewarded() {
-      sdkContextt.lastRequestedAd = "rewarded";
+      sdkContext.lastRequestedAd = "rewarded";
       if (!currentSdk || !currentSdk.hasAds) {
-        dispatch("adStarted", sdkContextt.lastRequestedAd);
+        dispatch("adStarted", sdkContext.lastRequestedAd);
         return Promise.resolve(true);
       }
-	dispatch("adStarted", sdkContextt.lastRequestedAd);
+	dispatch("adStarted", sdkContext.lastRequestedAd);
         return Promise.resolve(true);
 	return new Promise((resolve) => {
-        let gameplayStarted = sdkContextt.gameplayStarted;
+        let gameplayStarted = sdkContext.gameplayStarted;
         if (gameplayStarted) Wrapper.gameplayStop();
         Wrapper.mute();
         dispatch("rewarded");
@@ -572,7 +572,6 @@ globalThis.WebSdkWrapper = (function () {
         });
       });
     },
-
     onAdStarted(fn) {
       listen("adStarted", fn);
     },
