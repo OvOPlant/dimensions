@@ -36,7 +36,7 @@ if(window.location.href.includes("early")){
                 var i, len
                 for (i = 0, len = aaaa.instances.length; i < len; i++){       
                     aaaa.instances[i].my_timescale = 0}
-                notify("Which input?", "Press an input you wish to change (i.e press your UP key to change your UP input). Or press ctrl + ` again to cycle through in order.")
+                notify("Which input?", "Press an input you wish to change (e.g press your UP key to change your UP input). Or press ctrl + ` again to cycle through in order.")
                 document.addEventListener("keydown", whichInput)
                 document.removeEventListener("keydown", userInput)
             }
