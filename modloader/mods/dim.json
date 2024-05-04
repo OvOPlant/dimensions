@@ -173,5 +173,12 @@
         "description": "Change the behaviors of the game.",
         "advanced": false,
         "url": "behaviors.js"
+    },
+    "reverse": {
+        "name": "Reverse",
+        "author": "OvOPlant",
+        "description": "Play OvO Dimensions Reverse!",
+        "advanced": false,
+        "url": "reverse.js"
     }
 }
